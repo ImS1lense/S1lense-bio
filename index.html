@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Мой сайт</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(5px);
+        }
+        .container {
+            background-color: rgba(34, 34, 34, 0.8);
+            padding: 70px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7), 0 0 20px #d295ff;
+            text-align: center;
+            width: 900px;
+            height: 900px;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s;
+            color: white;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            margin: 0;
+            font-size: 48px;
+            text-shadow: 0 0 10px #c066ff;
+            transition: transform 0.3s;
+        }
+        h1:hover {
+            transform: scale(1.1);
+        }
+        .nickname {
+            font-size: 38px;
+            margin: 10px 0;
+            font-weight: 700;
+            text-shadow: 0 0 10px #c066ff;
+            transition: transform 0.3s;
+        }
+        .nickname:hover {
+            transform: scale(1.1);
+        }
+        .description {
+            margin: 10px 0;
+            font-size: 30px;
+            text-shadow: 0 0 10px #cc66ff;
+            transition: transform 0.3s;
+        }
+        .description:hover {
+            transform: scale(1.1);
+        }
+        .avatar {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border: 5px solid #c066ff;
+            box-shadow: 0 0 20px #c066ff;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #d295ff;
+        }
+        .info-popup {
+            display: none;
+            position: absolute;
+            top: -10px;
+            left: 160px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            width: 200px;
+            z-index: 10;
+            color: white;
+        }
+        .avatar:hover .info-popup {
+            display: block;
+        }
+        .socials {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .socials a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 40px;
+            transition: color 0.3s, transform 0.3s;
+            text-shadow: 0 0 10px #d295ff;
+        }
+        .socials a:hover {
+            color: #d295ff;
+            transform: scale(1.2);
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .track-info {
+            margin-bottom: 20px;
+        }
+        .track-name {
+            font-size: 36px;
+            color: white;
+            text-shadow: 0 0 10px #d295ff;
+            transition: transform 0.3s;
+        }
+        .track-name:hover {
+            transform: scale(1.1);
+        }
+        .track-info img {
+            width: 80px;
+            height: 80px;
+        }
+        .control-btns {
+            display: flex;
+            justify-content: center;
+        }
+        .control-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin: 0 15px;
+            position: relative;
+            font-size: 60px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .control-btn:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px #c066ff;
+        }
+        .control-btn i {
+            font-size: inherit;
+        }
+        .progress-bar {
+            width: 100%;
+            margin: 20px 0;
+            height: 5px;
+            background: #444;
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .progress-bar:hover {
+            background: #c066ff;
+            transform: scale(1.05);
+        }
+        .volume-control {
+            display: flex;
+            align-items: center;
+            margin-top: 60px;
+            position: relative;
+            margin-left: 0px;
+        }
+        .volume-control input {
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+        .volume-control input:hover {
+            transform: scale(1.1);
+        }
+        .volume-control .volume-label {
+            position: absolute;
+            left: 0;
+            top: -25px;
+            color: white;
+            font-size: 34px;
+            text-shadow: 0 0 10px #c066ff;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .volume-control:hover .volume-label {
+            color: #c066ff;
+            transform: scale(1.1);
+        }
+        .time-display {
+            margin-top: 10px;
+            font-size: 30px;
+            text-shadow: 0 0 10px #c066ff;
+            transition: transform 0.3s;
+        }
+        .time-display:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="background">
+    <video autoplay loop muted>
+        <source src="bgv12.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+</div>
+<div class="container">
+    <img src="avatar.png" alt="Аватарка" class="avatar">
+    <div class="info-popup">
+        <strong>Информация</strong><br>
+        Здесь будет ваша дополнительная информация о вас.
+    </div>
+    <h1 id="greeting"></h1>
+    <div class="nickname" id="nickname"></div>
+    <div class="description" id="description"></div>
+
+    <div class="track-info">
+        <img id="trackIcon" src="icon1.png" alt="Иконка трека">
+        <div class="track-name" id="trackName"></div>
+    </div>
+
+    <div class="controls">
+        <div class="control-btns">
+            <button class="control-btn" onclick="prevSong()"><i class="fas fa-backward fa-lg"></i></button>
+            <button class="control-btn" onclick="playSong()"><i class="fas fa-play fa-lg"></i></button>
+            <button class="control-btn" onclick="pauseSong()"><i class="fas fa-pause fa-lg"></i></button>
+            <button class="control-btn" onclick="nextSong()"><i class="fas fa-step-forward fa-lg"></i></button>
+        </div>
+
+        <div class="volume-control">
+            <span class="volume-label" id="volumeLabel">Громкость: 100%</span>
+            <input type="range" id="volumeControl" class="volume-control" value="100" min="0" max="100" step="1">
+        </div>
+
+        <input type="range" id="progressBar" class="progress-bar" value="0" min="0" max="100">
+        <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+    </div>
+
+    <audio id="audio"></audio>
+
+    <div class="socials">
+        <a href="https://github.com/ImS1lense" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.tiktok.com/users/dabs1lense" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://t.me/s1lense812" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="https://steamcommunity.com/profiles/76561199635262411" target="_blank"><i class="fab fa-steam"></i></a>
+    </div>
+</div>
+
+<script>
+    const tracks = [
+        { name: 'Кис-Кис - Мальчик', src: 'track1.mp3', icon: 'icon1.png' },
+        { name: 'Dabbackwood - Фрик', src: 'track2.mp3', icon: 'icon2.png' },
+        { name: 'Дайте Танк (!) - Маленький', src: 'track3.mp3', icon: 'icon3.png' }
+    ];
+    let currentTrackIndex = 0;
+
+    function loadTrack() {
+        const audio = document.getElementById('audio');
+        audio.src = tracks[currentTrackIndex].src;
+        document.getElementById('trackName').innerText = tracks[currentTrackIndex].name;
+        document.getElementById('trackIcon').src = tracks[currentTrackIndex].icon;
+        document.getElementById('progressBar').value = 0;
+        updateTimeDisplay();
+    }
+
+    function playSong() {
+        const audio = document.getElementById('audio');
+        audio.play();
+        updateProgress();
+    }
+
+    function pauseSong() {
+        const audio = document.getElementById('audio');
+        audio.pause();
+    }
+
+    function nextSong() {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        loadTrack();
+        playSong();
+    }
+
+    function prevSong() {
+        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        loadTrack();
+        playSong();
+    }
+
+    function updateProgress() {
+        const audio = document.getElementById('audio');
+        const progressBar = document.getElementById('progressBar');
+        const volumeControl = document.getElementById('volumeControl');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        audio.ontimeupdate = function() {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.value = progress;
+            updateTimeDisplay();
+        };
+
+        progressBar.oninput = function() {
+            audio.currentTime = (progressBar.value / 100) * audio.duration;
+        };
+
+        volumeControl.oninput = function() {
+            audio.volume = volumeControl.value / 100;
+            document.getElementById('volumeLabel').innerText = `Громкость: ${volumeControl.value}%`;
+        };
+    }
+
+    function updateTimeDisplay() {
+        const audio = document.getElementById('audio');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        const currentMinutes = Math.floor(audio.currentTime / 60);
+        const currentSeconds = Math.floor(audio.currentTime % 60);
+        const durationMinutes = Math.floor(audio.duration / 60);
+        const durationSeconds = Math.floor(audio.duration % 60);
+
+        timeDisplay.innerText = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds} / ${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+    }
+
+    function typeText(elementId, text, delay) {
+        let index = 0;
+        const element = document.getElementById(elementId);
+        element.innerHTML = '';
+        const interval = setInterval(() => {
+            element.innerHTML += text.charAt(index);
+            index++;
+            if (index === text.length) {
+                clearInterval(interval);
+            }
+        }, delay);
+    }
+
+    window.onload = function() {
+        loadTrack();
+        typeText('greeting', 'Welcome,I am', 100);
+        setTimeout(() => typeText('nickname', 'S1lense', 100), 1500);
+        setTimeout(() => typeText('description', 'This is my website, and here will be information about my projects and me.', 60), 3000);
+    };
+</script>
+
+</body>
+</html>
