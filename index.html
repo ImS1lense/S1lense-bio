@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Мой сайт</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('fonts/minecraft.ttf') format('truetype'); /* Замените на ваш путь к файлу шрифта */
+        }
         body {
             margin: 0;
             padding: 0;
@@ -15,6 +19,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            font-family: 'Minecraft', sans-serif;
         }
         .background {
             position: fixed;
@@ -52,6 +57,7 @@
             font-size: 48px;
             text-shadow: 0 0 10px #c066ff;
             transition: transform 0.3s;
+            font-family: 'Minecraft', sans-serif;
         }
         h1:hover {
             transform: scale(1.1);
@@ -174,6 +180,8 @@
             outline: none;
             transition: background 0.3s, transform 0.3s;
         }
+
+
         .progress-bar:hover {
             background: #c066ff;
             transform: scale(1.05);
